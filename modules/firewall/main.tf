@@ -4,7 +4,7 @@ resource "google_compute_firewall" "allow_http" {
   project       = var.project_id
   name          = "${var.env}-allow-http"
   network       = var.network_name
-  priority      = var.rule_priority
+  priority      = var.firewall_rule_priority
   source_ranges = var.http_source_ranges
   target_tags   = [var.web_server_tag]
 
@@ -19,7 +19,7 @@ resource "google_compute_firewall" "allow_https" {
   project       = var.project_id
   name          = "${var.env}-allow-https"
   network       = var.network_name
-  priority      = var.rule_priority
+  priority      = var.firewall_rule_priority
   source_ranges = var.https_source_ranges
   target_tags   = [var.web_server_tag]
 
@@ -37,7 +37,7 @@ resource "google_compute_firewall" "allow_ssh" {
   project       = var.project_id
   name          = "${var.env}-allow-ssh"
   network       = var.network_name
-  priority      = var.rule_priority
+  priority      = var.firewall_rule_priority
   source_ranges = var.ssh_source_ranges
 
   allow {
