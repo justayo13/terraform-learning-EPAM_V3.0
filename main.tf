@@ -17,7 +17,7 @@ module "firewall" {
   env                   = var.env
   network_name          = module.network.network_name
   web_server_tag        = var.web_server_tag
-  rule_priority         = var.firewall_rule_priority
+  firewall_rule_priority= var.firewall_rule_priority
   ssh_source_ranges     = var.ssh_source_ranges
   http_source_ranges    = var.http_source_ranges
   https_source_ranges   = var.https_source_ranges

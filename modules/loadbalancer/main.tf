@@ -32,9 +32,10 @@ resource "google_compute_health_check" "http_health_check" {
   timeout_sec         = var.health_check_timeout_sec
   healthy_threshold   = var.health_check_healthy_threshold
   unhealthy_threshold = var.health_check_unhealthy_threshold
-
-  http_check {
-    port = var.health_check_port
+  
+  http_health_check {
+    port         = var.health_check_port
+    request_path = "/" 
   }
 }
 
@@ -70,9 +71,9 @@ resource "google_compute_target_http_proxy" "http_proxy" {
 
 # Global Forwarding Rule (IP Address)
 resource "google_compute_global_forwarding_rule" "forwarding_rule" {
-  project               = var.project_id
-  name                  = "${var.env}-forwarding-rule"
-  target                = google_compute_target_http_proxy.http_proxy.id
-  port_range            = var.forwarding_rule_port_range
-  load_balancing_scheme = "EXTERNAL"
+  project                 = var.project_id
+  name                    = "${var.env}-forwarding-rule"
+  target                  = google_compute_target_http_proxy.http_proxy.id
+  port_range              = var.forwarding_rule_port_range
+  load_balancing_scheme   = "EXTERNAL"
 }
