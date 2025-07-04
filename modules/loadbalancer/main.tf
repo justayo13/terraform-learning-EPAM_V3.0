@@ -1,27 +1,5 @@
 # Resource definitions for Load Balancers, Backend Services, and Cloud Armor
 
-# --- Cloud Armor Security Policy ---
-resource "google_compute_security_policy" "armor_policy" {
-  project     = var.project_id
-  name        = "${var.env}-armor-policy"
-  description = "Security policy for the ${var.env} load balancer"
-
-  dynamic "rule" {
-    for_each = var.armor_rules
-    content {
-      action      = rule.value.action
-      priority    = rule.value.priority
-      description = rule.value.description
-      match {
-        versioned_expr = rule.value.versioned_expr
-        config {
-          src_ip_ranges = rule.value.src_ip_ranges
-        }
-      }
-    }
-  }
-}
-
 # --- Load Balancer Components ---
 
 # Health Check
@@ -76,4 +54,26 @@ resource "google_compute_global_forwarding_rule" "forwarding_rule" {
   target                  = google_compute_target_http_proxy.http_proxy.id
   port_range              = var.forwarding_rule_port_range
   load_balancing_scheme   = "EXTERNAL"
+}
+
+# --- Cloud Armor Security Policy ---
+resource "google_compute_security_policy" "armor_policy" {
+  project     = var.project_id
+  name        = "${var.env}-armor-policy"
+  description = "Security policy for the ${var.env} load balancer"
+
+  dynamic "rule" {
+    for_each = var.armor_rules
+    content {
+      action      = rule.value.action
+      priority    = rule.value.priority
+      description = rule.value.description
+      match {
+        versioned_expr = rule.value.versioned_expr
+        config {
+          src_ip_ranges = rule.value.src_ip_ranges
+        }
+      }
+    }
+  }
 }

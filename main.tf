@@ -55,3 +55,9 @@ module "loadbalancer" {
   backend_port_name                = var.backend_port_name
   backend_timeout_sec              = var.backend_timeout_sec
 }
+
+# --- Root Outputs ---
+output "load_balancer_ip" {
+  description = "The public IP address of the load balancer."
+  value       = module.loadbalancer.lb_ip_address
+}
