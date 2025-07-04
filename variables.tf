@@ -104,7 +104,7 @@ variable "source_image" {
 }
 
 # --- Load Balancer & Cloud Armor ---
-variable "lb_port_range" {
+variable "forwarding_rule_port_range" {
   description = "Port range for the Load Balancer forwarding rule."
   type        = string
   default     = "80"

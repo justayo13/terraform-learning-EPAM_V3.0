@@ -45,7 +45,7 @@ module "loadbalancer" {
   env                              = var.env
   instance_group                   = module.compute.instance_group
   armor_rules                      = var.armor_rules
-  forwarding_rule_port_range       = var.lb_port_range
+  forwarding_rule_port_range       = var.forwarding_rule_port_range
   health_check_port                = var.health_check_port
   health_check_interval_sec        = var.health_check_interval_sec
   health_check_timeout_sec         = var.health_check_timeout_sec
